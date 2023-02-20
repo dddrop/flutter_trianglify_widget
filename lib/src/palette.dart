@@ -1,16 +1,7 @@
 class Palette {
   Palette(
       int c0, int c1, int c2, int c3, int c4, int c5, int c6, int c7, int c8) {
-    colors = <int>[];
-    colors[0] = c0;
-    colors[1] = c1;
-    colors[2] = c2;
-    colors[3] = c3;
-    colors[4] = c4;
-    colors[5] = c5;
-    colors[6] = c6;
-    colors[7] = c7;
-    colors[8] = c8;
+    colors = <int>[c0, c1, c2, c3, c4, c5, c6, c7, c8];
   }
 
   Palette.fromList(this.colors) {
@@ -18,6 +9,7 @@ class Palette {
       throw Exception('Colors array length should exactly be 9');
     }
   }
+
   static const int DEFAULT_PALETTE_COUNT = 28;
 
   static const int YL_GN = 0;

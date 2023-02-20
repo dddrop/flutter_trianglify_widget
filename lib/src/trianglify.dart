@@ -10,6 +10,7 @@ import 'pattern/rectangle.dart';
 import 'trianglify_widget.dart';
 import 'triangulation.dart';
 import 'triangulator/delaunay_triangulator.dart';
+import 'triangulator/triangle_2d.dart';
 import 'triangulator/vector_2d.dart';
 
 class Trianglify extends StatelessWidget {
@@ -27,7 +28,7 @@ class Trianglify extends StatelessWidget {
     required this.isDrawStroke,
     required this.isRandomColoring,
     required this.palette,
-    required this.triangulation,
+    this.triangulation = const Triangulation(<Triangle2D>[]),
     required this.generateOnlyColor,
   })  : assert(bleedX != null),
         assert(bleedY != null),
