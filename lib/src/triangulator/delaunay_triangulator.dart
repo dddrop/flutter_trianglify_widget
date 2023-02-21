@@ -6,16 +6,12 @@ import 'triangle_soup.dart';
 import 'vector_2d.dart';
 
 class DelaunayTriangulator {
-  DelaunayTriangulator(this.pointSet) {
-    triangleSoup = TriangleSoup();
-  }
+  DelaunayTriangulator(this.pointSet) : triangleSoup = TriangleSoup();
 
   List<Vector2D> pointSet;
-  late TriangleSoup triangleSoup;
+  final TriangleSoup triangleSoup;
 
   void triangulate() {
-    triangleSoup = TriangleSoup();
-
     if (pointSet == null || pointSet.length < 3) {
       throw Exception('Less than three points in point set.');
     }
@@ -45,7 +41,10 @@ class DelaunayTriangulator {
         final Edge2D edge = triangleSoup.findNearestEdge(pointSet[i]);
 
         final Triangle2D? first = triangleSoup.findOneTriangleSharing(edge);
-        final Triangle2D? second = triangleSoup.findNeighbour(first!, edge);
+        if (first == null) {
+          throw Exception('First triangle is null.');
+        }
+        final Triangle2D? second = triangleSoup.findNeighbour(first, edge);
 
         final Vector2D? firstNoneEdgeVertex = first.getNoneEdgeVertex(edge);
         final Vector2D? secondNoneEdgeVertex = second?.getNoneEdgeVertex(edge);

@@ -6,20 +6,16 @@ import 'vector_2d.dart';
 class TriangleSoup {
   TriangleSoup();
 
-  Set<Triangle2D> triangleSoup = <Triangle2D>{};
+  final Set<Triangle2D> _triangleSoup = <Triangle2D>{};
 
-  void add(Triangle2D triangle) {
-    triangleSoup.add(triangle);
-  }
+  void add(Triangle2D triangle) => _triangleSoup.add(triangle);
 
-  void remove(Triangle2D triangle) {
-    triangleSoup.remove(triangle);
-  }
+  void remove(Triangle2D triangle) => _triangleSoup.remove(triangle);
 
-  List<Triangle2D> get triangles => triangleSoup.toList();
+  List<Triangle2D> get triangles => _triangleSoup.toList();
 
   Triangle2D? findContainingTriangle(Vector2D point) {
-    for (final Triangle2D triangle in triangleSoup) {
+    for (final Triangle2D triangle in _triangleSoup) {
       if (triangle.contains(point)) {
         return triangle;
       }
@@ -27,8 +23,8 @@ class TriangleSoup {
     return null;
   }
 
-  Triangle2D? findNeighbour(Triangle2D triangle, Edge2D edge) {
-    for (final Triangle2D triangleFromSoup in triangleSoup) {
+  Triangle2D? findNeighbour(Triangle2D? triangle, Edge2D edge) {
+    for (final Triangle2D triangleFromSoup in _triangleSoup) {
       if (triangleFromSoup.isNeighbour(edge) && triangleFromSoup != triangle) {
         return triangleFromSoup;
       }
@@ -37,7 +33,7 @@ class TriangleSoup {
   }
 
   Triangle2D? findOneTriangleSharing(Edge2D edge) {
-    for (final Triangle2D triangle in triangleSoup) {
+    for (final Triangle2D triangle in _triangleSoup) {
       if (triangle.isNeighbour(edge)) {
         return triangle;
       }
@@ -47,7 +43,7 @@ class TriangleSoup {
 
   Edge2D findNearestEdge(Vector2D point) {
     final List<EdgeDistancePack> edgeList = <EdgeDistancePack>[];
-    for (final Triangle2D triangle in triangleSoup) {
+    for (final Triangle2D triangle in _triangleSoup) {
       edgeList.add(triangle.findNearestEdge(point));
     }
     edgeList.sort();
@@ -56,13 +52,11 @@ class TriangleSoup {
 
   void removeTrianglesUsing(Vector2D vertex) {
     final List<Triangle2D> trianglesToBeRemoved = <Triangle2D>[];
-
-    for (final Triangle2D triangle in triangleSoup) {
+    for (final Triangle2D triangle in _triangleSoup) {
       if (triangle.hasVertex(vertex)) {
         trianglesToBeRemoved.add(triangle);
       }
     }
-
-    triangleSoup.removeAll(trianglesToBeRemoved);
+    _triangleSoup.removeAll(trianglesToBeRemoved);
   }
 }

@@ -1,5 +1,3 @@
-import 'package:flutter/foundation.dart';
-
 import '../extended_color.dart';
 import '../palette.dart';
 import '../point.dart';
@@ -14,35 +12,25 @@ class FixedPointsColorizer implements Colorizer {
     this.triangulation,
     this.colorPalette,
     this.gridHeight,
-    this.gridWidth,
-    this.randomColoring,
-  ) {
-    random = ThreadLocalRandom(DateTime.now().millisecond);
-  }
+    this.gridWidth, {
+    this.randomColoring = false,
+  }) : random = ThreadLocalRandom(DateTime.now().millisecond);
 
   FixedPointsColorizer.fromDefault(Triangulation triangulation,
       Palette colorPalette, int gridHeight, int gridWidth)
-      : this(triangulation, colorPalette, gridHeight, gridWidth, false);
+      : this(triangulation, colorPalette, gridHeight, gridWidth);
 
-  late ThreadLocalRandom random;
-  Triangulation triangulation;
-  Palette colorPalette;
-
-  int gridWidth;
-  int gridHeight;
-
-  bool randomColoring = false;
+  final ThreadLocalRandom random;
+  final Triangulation triangulation;
+  final Palette colorPalette;
+  final int gridWidth;
+  final int gridHeight;
+  final bool randomColoring;
 
   @override
   Triangulation getColororedTriangulation() {
-    if (triangulation != null) {
-      for (final Triangle2D triangle in triangulation.triangleList) {
-        triangle.color = getColorForPoint(triangle.getCentroid());
-      }
-    } else {
-      if (kDebugMode) {
-        print('colorizeTriangulation: Triangulation cannot be null!');
-      }
+    for (final Triangle2D triangle in triangulation.triangleList) {
+      triangle.color = getColorForPoint(triangle.getCentroid());
     }
     return triangulation;
   }
@@ -57,7 +45,6 @@ class FixedPointsColorizer implements Colorizer {
       Point topLeft, topRight;
       Point bottomLeft, bottomRight;
 
-      // Following if..else identifies which sub-rectangle given point lies
       if (point.x < gridWidth / 2 && point.y < gridHeight / 2) {
         topLeftColor = ExtendedColor.fromPalette(colorPalette.getColor(0));
         topRightColor = ExtendedColor.fromPalette(colorPalette.getColor(1));

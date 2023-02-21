@@ -10,7 +10,6 @@ import 'pattern/rectangle.dart';
 import 'trianglify_widget.dart';
 import 'triangulation.dart';
 import 'triangulator/delaunay_triangulator.dart';
-import 'triangulator/triangle_2d.dart';
 import 'triangulator/vector_2d.dart';
 
 class Trianglify extends StatelessWidget {
@@ -28,7 +27,7 @@ class Trianglify extends StatelessWidget {
     required this.isDrawStroke,
     required this.isRandomColoring,
     required this.palette,
-    this.triangulation = const Triangulation(<Triangle2D>[]),
+    this.triangulation,
     required this.generateOnlyColor,
   })  : assert(bleedX != null),
         assert(bleedY != null),
@@ -58,7 +57,7 @@ class Trianglify extends StatelessWidget {
   final bool isDrawStroke;
   final bool isRandomColoring;
   final Palette palette;
-  final Triangulation triangulation;
+  final Triangulation? triangulation;
   final bool generateOnlyColor;
 
   Future<Triangulation> _generate() async => _getSoup();
@@ -83,7 +82,6 @@ class Trianglify extends StatelessWidget {
         print('Error on generateTriangulation');
       }
     }
-
     return Triangulation(triangulator.triangles);
   }
 
@@ -93,7 +91,7 @@ class Trianglify extends StatelessWidget {
         palette,
         (gridHeight + 2 * bleedY).toInt(),
         (gridWidth + 2 * bleedX).toInt(),
-        isRandomColoring);
+        randomColoring: isRandomColoring);
     return colorizer.getColororedTriangulation();
   }
 
@@ -160,7 +158,7 @@ class Trianglify extends StatelessWidget {
         typeGrid: typeGrid,
         variance: variance,
         palette: palette,
-        triangulation: triangulation,
+        triangulation: triangulation!,
       );
     }
   }

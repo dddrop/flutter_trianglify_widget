@@ -45,19 +45,20 @@ class TrianglifyWidget extends AbstractTrianglify {
         child: ClipRect(
           child: CustomPaint(
             painter: _TrianglifyWidgetPainter(
-                bleedX: 75 + bleedX,
-                bleedY: 28 + bleedY,
-                typeGrid: typeGrid,
-                gridWidth: gridWidth,
-                gridHeight: gridHeight,
-                variance: variance,
-                cellSize: cellSize,
-                isFillViewCompletely: isFillViewCompletely,
-                isFillTriangle: isFillTriangle,
-                isDrawStroke: isDrawStroke,
-                isRandomColoring: isRandomColoring,
-                palette: palette,
-                triangulation: triangulation),
+              bleedX: 75 + bleedX,
+              bleedY: 28 + bleedY,
+              typeGrid: typeGrid,
+              gridWidth: gridWidth,
+              gridHeight: gridHeight,
+              variance: variance,
+              cellSize: cellSize,
+              isFillViewCompletely: isFillViewCompletely,
+              isFillTriangle: isFillTriangle,
+              isDrawStroke: isDrawStroke,
+              isRandomColoring: isRandomColoring,
+              palette: palette,
+              triangulation: triangulation,
+            ),
             isComplex: true,
           ),
         ),
@@ -66,7 +67,6 @@ class TrianglifyWidget extends AbstractTrianglify {
   }
 }
 
-/// [CustomPainter] that draws a Triangles.
 class _TrianglifyWidgetPainter extends CustomPainter {
   _TrianglifyWidgetPainter({
     required this.bleedX,
@@ -99,19 +99,19 @@ class _TrianglifyWidgetPainter extends CustomPainter {
   static const double BASE_SIZE = 320.0;
   static const double STROKE_WIDTH = 1.0;
 
-  double bleedX;
-  double bleedY;
-  int typeGrid;
-  double gridWidth;
-  double gridHeight;
-  double variance;
-  double cellSize;
-  bool isFillViewCompletely;
-  bool isFillTriangle;
-  bool isDrawStroke;
-  bool isRandomColoring;
-  Palette palette;
-  Triangulation triangulation;
+  final double bleedX;
+  final double bleedY;
+  final int typeGrid;
+  final double gridWidth;
+  final double gridHeight;
+  final double variance;
+  final double cellSize;
+  final bool isFillViewCompletely;
+  final bool isFillTriangle;
+  final bool isDrawStroke;
+  final bool isRandomColoring;
+  final Palette palette;
+  final Triangulation triangulation;
   bool? generateOnlyColor;
 
   @override

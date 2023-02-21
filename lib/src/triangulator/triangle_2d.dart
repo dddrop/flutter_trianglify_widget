@@ -90,18 +90,14 @@ class Triangle2D {
   bool hasVertex(Vector2D vertex) => a == vertex || b == vertex || c == vertex;
 
   EdgeDistancePack findNearestEdge(Vector2D point) {
-    final List<EdgeDistancePack> edges = <EdgeDistancePack>[];
-
-    edges[0] = EdgeDistancePack(Edge2D(a, b),
-        computeClosestPoint(Edge2D(a, b), point).sub(point).mag());
-    edges[1] = EdgeDistancePack(Edge2D(b, c),
-        computeClosestPoint(Edge2D(b, c), point).sub(point).mag());
-    edges[2] = EdgeDistancePack(Edge2D(c, a),
-        computeClosestPoint(Edge2D(c, a), point).sub(point).mag());
-
-    edges.sort();
-
-    return edges[0];
+    return (<EdgeDistancePack>[
+      EdgeDistancePack(Edge2D(a, b),
+          computeClosestPoint(Edge2D(a, b), point).sub(point).mag()),
+      EdgeDistancePack(Edge2D(b, c),
+          computeClosestPoint(Edge2D(b, c), point).sub(point).mag()),
+      EdgeDistancePack(Edge2D(c, a),
+          computeClosestPoint(Edge2D(c, a), point).sub(point).mag()),
+    ]..sort())[0];
   }
 
   Vector2D computeClosestPoint(Edge2D edge, Vector2D point) {

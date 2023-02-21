@@ -1,14 +1,31 @@
 class Palette {
   Palette(
-      int c0, int c1, int c2, int c3, int c4, int c5, int c6, int c7, int c8) {
-    colors = <int>[c0, c1, c2, c3, c4, c5, c6, c7, c8];
-  }
+    int color0,
+    int color1,
+    int color2,
+    int color3,
+    int color4,
+    int color5,
+    int color6,
+    int color7,
+    int color8,
+  ) : colors = <int>[
+          color0,
+          color1,
+          color2,
+          color3,
+          color4,
+          color5,
+          color6,
+          color7,
+          color8,
+        ];
 
-  Palette.fromList(this.colors) {
-    if (colors.length != 9) {
-      throw Exception('Colors array length should exactly be 9');
-    }
-  }
+  Palette.fromList(this.colors)
+      : assert(
+          colors.length == 9,
+          'Colors array length should exactly be 9',
+        );
 
   static const int DEFAULT_PALETTE_COUNT = 28;
 
@@ -41,7 +58,7 @@ class Palette {
   static const int SPECTRAL = 26;
   static const int RD_YL_GN = 27;
 
-  late final List<int> colors;
+  final List<int> colors;
 
   static Palette getPalette(int paletteIndex) {
     switch (paletteIndex) {
@@ -155,27 +172,9 @@ class Palette {
   }
 
   int getColor(int index) {
-    switch (index) {
-      case 0:
-        return colors[0];
-      case 1:
-        return colors[1];
-      case 2:
-        return colors[2];
-      case 3:
-        return colors[3];
-      case 4:
-        return colors[4];
-      case 5:
-        return colors[5];
-      case 6:
-        return colors[6];
-      case 7:
-        return colors[7];
-      case 8:
-        return colors[8];
-      default:
-        throw Exception('Index should be less than 9');
+    if (index < 0 || index > 8) {
+      throw Exception('Index should be less than 9');
     }
+    return colors[index];
   }
 }
